@@ -62,3 +62,13 @@ function msum_options_update(){
 }
 add_action( 'update_wpmu_options', 'msum_options_update' );
 
+
+// Clean up when plugin is deleted
+function msum_uninstall(){
+	foreach( get_blog_list( 0, 'all' ) as $key => $blog ) { 
+		switch_to_blog( $blog[ 'blog_id' ] );
+		delete_option( 'msum_default_user_role', $role );
+		restore_current_blog();
+	}
+}
+register_uninstall_hook( __FILE__, 'msum_uninstall' );
