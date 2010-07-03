@@ -19,13 +19,13 @@ You determine each role on a per site basis under the Super Admin | Options menu
 
 == Installation ==
 
-Upload the plugin to your blog, activate it, then visit "Super Admin | Options menu" to allocates roles per site.
+Upload the plugin to your site, activate it, then visit "Super Admin | Options menu" to assign default roles to each of your sites.
 
 == Frequently Asked Questions ==
 
 = Does this require a multisite installation? =
 
-Yes, WordPress takes care of this on non-multisite installations.
+Yes, WordPress takes care of default roles on non-multisite installations.
 
 = Where can I get support? =
 
