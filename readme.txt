@@ -29,11 +29,11 @@ Yes, WordPress takes care of default roles on non-multisite installations.
 
 = Where can I get support? =
 
-Submit an Issue on the github page here: http://github.com/thenbrent/MsUM/issues
+Submit an Issue on the github page here: http://github.com/thenbrent/multisite-user-management/issues
 
 = Where can I report a bug? =
 
-Submit an Issue on the github page here: http://github.com/thenbrent/MsUM/issues
+Submit an Issue on the github page here: http://github.com/thenbrent/multisite-user-management/issues
 
 == Screenshots ==
 
