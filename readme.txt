@@ -21,9 +21,9 @@ Upload the multisite-user-management.php file to the wp-content/mu-plugins direc
 
 The mu-plugins folder is not created by default, therefore, you may need to create it under wp-content. This plugin will only work in the mu-plugins directory. 
 
-Once uploaded to mu-plugin, the file will be activated automatically.
+After being uploaded to mu-plugin, the plugin will be activated automatically.
 
-You can then visit "Super Admin | Options" page to assign the default roles for each of your sites.
+Once installed in the correct location, you will find a "Multisite User Management" section under "Super Admin | Options" page.
 
 == Frequently Asked Questions ==
 
