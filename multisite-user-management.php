@@ -10,43 +10,55 @@ Network: true
 */
 
 // When a user activates their account, allocate them the default role set for each site
-function msum_activate_user( $user_id, $password, $meta ){
+function msum_activate_user( $user_id ){
+	
+	$dashboard_blog = get_site_option( 'dashboard_blog' );
 
 	foreach( get_blog_list( 0, 'all' ) as $key => $blog ) { 
+		if( $blog[ 'blog_id' ] == $dashboard_blog )
+			continue;
 		switch_to_blog( $blog[ 'blog_id' ] );
 
 		$role = get_option( 'msum_default_user_role' );
 
 		if( $role != 'none' )
-			add_user_to_blog( $blog[ 'blog_id' ], $user_id, get_option( 'msum_default_user_role', 'none' ) );
+			add_user_to_blog( $blog[ 'blog_id' ], $user_id, $role );
 
 		restore_current_blog();
 	}
 }
-add_action( 'wpmu_activate_user', 'msum_register_user', 10, 3 );
+add_action( 'wpmu_activate_user', 'msum_activate_user', 10, 1 );
 
 
 // Print Default Role selection boxes on the 'Site Admin | Options' page
 function msum_options(){ ?>
-	<h3><?php _e( 'Multisite User Management', 'msum' ); ?></h3>
-	<p><?php _e( 'Select the default role for each of your sites. New Users receive each of these roles when activating their account.', 'msum' ); ?></p>
-	<table class="form-table"><?php
-		foreach( get_blog_list( 0, 'all' ) as $key => $blog ) { 
-			switch_to_blog( $blog[ 'blog_id' ] );
-			?>
-			<tr valign="top">
-				<th scope="row"><?php echo get_bloginfo( 'name' ); //echo $blog_name; ?></th>
-				<td>
-					<select name="default_user_role[<?php echo $blog[ 'blog_id' ]; ?>]" id="default_user_role[<?php echo $blog[ 'blog_id' ]; ?>]">
-						<option value="none"><?php _e( '-- None --', 'msum' )?></option>
-						<?php wp_dropdown_roles( get_option( 'msum_default_user_role' ) ); ?>
-					</select>
-				</td> 
-			</tr>
-		<?php restore_current_blog();
-		} ?>
-	</table>
-<?php
+	<h3><?php _e( 'MultiSite User Management', 'msum' ); ?></h3>
+	<?php if( basename( dirname( __FILE__ ) ) == 'mu-plugins' ) { ?>
+		<p><?php _e( 'Select the default roles for your sites. New Users receive these roles when activating their account. The default role for the dashboard site is set above.', 'msum' ); ?></p>
+		<table class="form-table"><?php
+			$dashboard_blog = get_site_option( 'dashboard_blog' );
+			foreach( get_blog_list( 0, 'all' ) as $key => $blog ) { 
+				if( $blog[ 'blog_id' ] == $dashboard_blog )
+					continue;
+				switch_to_blog( $blog[ 'blog_id' ] );
+				?>
+				<tr valign="top">
+					<th scope="row"><?php echo get_bloginfo( 'name' ); //echo $blog_name; ?></th>
+					<td>
+						<select name="default_user_role[<?php echo $blog[ 'blog_id' ]; ?>]" id="default_user_role[<?php echo $blog[ 'blog_id' ]; ?>]">
+							<option value="none"><?php _e( '-- None --', 'msum' )?></option>
+							<?php wp_dropdown_roles( get_option( 'msum_default_user_role' ) ); ?>
+						</select>
+					</td> 
+				</tr>
+			<?php restore_current_blog();
+			} ?>
+		</table>
+	<?php } else { 	?>
+		<p><b>Whoops, it looks like <em><?php echo basename( __FILE__ ); ?></em> is not located in <em>/wp-content/mu-plugins/</em></b></p> 
+		<p>It is located in <em><?php echo dirname( __FILE__ ); ?></em>. Please move it to <em>/wp-content/mu-plugins/</em> for it to work correctly.</p>
+		<?php
+	}
 }
 add_action('wpmu_options', 'msum_options');
 
