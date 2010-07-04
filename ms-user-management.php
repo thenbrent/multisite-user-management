@@ -34,7 +34,7 @@ function msum_options(){
 	?>
 	<h3><?php _e( 'MultiSite User Management', 'msum' ); ?></h3>
 	<?php if( basename( dirname( __FILE__ ) ) == 'mu-plugins' ) { ?>
-		<p><?php _e( 'Select the default roles for your non-dashboard sites. New users receive each of these roles when activating their account.', 'msum' ); ?></p>
+		<p><?php _e( 'Select the default role for each of your sites. New users will receive these roles when activating their account.', 'msum' ); ?></p>
 		<table class="form-table"><?php
 			$dashboard_blog = get_site_option( 'dashboard_blog' );
 			foreach( get_blog_list( 0, 'all' ) as $key => $blog ) { 
@@ -54,7 +54,7 @@ function msum_options(){
 			<?php restore_current_blog();
 			} ?>
 		</table>
-		<p><?php _e( '<b>Note:</b> the role for the dashboard site is set under <b>Dashboard Settings</b>.', 'msum' ); ?></p>
+		<p><?php _e( '<b>Note:</b> only public, non-mature and non-dashboard sites appear here. Set the default role for the dashboard site under <b>Dashboard Settings</b>.', 'msum' ); ?></p>
 	<?php } else { 	?>
 		<p><b>Whoops, it looks like <em><?php echo basename( __FILE__ ); ?></em> is not located in <em>/wp-content/mu-plugins/</em></b></p> 
 		<p>Instead, it is located in <em><?php echo dirname( __FILE__ ); ?></em>. Please move it to <em>/wp-content/mu-plugins/</em> for it to work correctly.</p>
