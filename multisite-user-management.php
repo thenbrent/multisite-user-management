@@ -30,10 +30,11 @@ add_action( 'wpmu_activate_user', 'msum_activate_user', 10, 1 );
 
 
 // Print Default Role selection boxes on the 'Site Admin | Options' page
-function msum_options(){ ?>
+function msum_options(){ 
+	?>
 	<h3><?php _e( 'MultiSite User Management', 'msum' ); ?></h3>
 	<?php if( basename( dirname( __FILE__ ) ) == 'mu-plugins' ) { ?>
-		<p><?php _e( 'Select the default roles for your sites. New Users receive these roles when activating their account. The default role for the dashboard site is set above.', 'msum' ); ?></p>
+		<p><?php _e( 'Select the default roles for your non-dashboard sites. New users receive each of these roles when activating their account.', 'msum' ); ?></p>
 		<table class="form-table"><?php
 			$dashboard_blog = get_site_option( 'dashboard_blog' );
 			foreach( get_blog_list( 0, 'all' ) as $key => $blog ) { 
@@ -53,9 +54,10 @@ function msum_options(){ ?>
 			<?php restore_current_blog();
 			} ?>
 		</table>
+		<p><?php _e( '<b>Note:</b> the role for the dashboard site is set under <b>Dashboard Settings</b>.', 'msum' ); ?></p>
 	<?php } else { 	?>
 		<p><b>Whoops, it looks like <em><?php echo basename( __FILE__ ); ?></em> is not located in <em>/wp-content/mu-plugins/</em></b></p> 
-		<p>It is located in <em><?php echo dirname( __FILE__ ); ?></em>. Please move it to <em>/wp-content/mu-plugins/</em> for it to work correctly.</p>
+		<p>Instead, it is located in <em><?php echo dirname( __FILE__ ); ?></em>. Please move it to <em>/wp-content/mu-plugins/</em> for it to work correctly.</p>
 		<?php
 	}
 }
