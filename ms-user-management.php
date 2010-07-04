@@ -2,7 +2,7 @@
 /*
 Plugin Name: Multisite User Management
 Plugin URI: http://github.com/thenbrent/multisite-user-management
-Description: Running WordPress in Multisite mode? You no longer need to be manually add new users to a blog. With this plugin, when a new user activates their account, they assigned a role for each blog on your site. You determine which role under the Super Admin | Options menu.
+Description: Running a WordPress in MultiSite mode? You no longer need to manually add new users to each of your sites. 
 Author: Brent Shepherd
 Version: 0.1
 Network: true

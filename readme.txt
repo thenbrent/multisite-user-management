@@ -17,7 +17,7 @@ You can assign different roles for each site or no roles if you want some site's
 
 == Installation ==
 
-1. Upload only the `multisite-user-management.php` file to the `wp-content/mu-plugins/` directory (you can discard the multi-site-user-management directory and its contents). 
+1. Upload only the `ms-user-management.php` file to the `wp-content/mu-plugins/` directory (you can discard the multi-site-user-management directory and its contents). 
 1. After being uploaded to `mu-plugins`, the plugin will be activated automatically.
 1. Navigate to the **Multisite User Management** section of the *Super Admin | Options* page and set the default role for each of your sites.
 
