@@ -3,7 +3,7 @@ Contributors: thenbrent
 Tags: multisite
 Requires at least: 3.0
 Tested up to: 3.0
-Stable tag: 1.0
+Stable tag: 0.1
 
 Add new users to every site in a MultiSite WordPress installation with a default role you choose.
 
@@ -17,7 +17,7 @@ You determine the default role for each site under the "Super Admin | Options" m
 
 == Installation ==
 
-Upload the multisite-user-management.php file to the wp-content/mu-plugins directory. 
+Upload the multisite-user-management.php file to the wp-content/mu-plugins directory (you can discard the multi-site-user-management directory and contents). 
 
 The mu-plugins folder is not created by default, therefore, you may need to create it under wp-content. This plugin will only work in the mu-plugins directory. 
 
