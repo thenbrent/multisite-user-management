@@ -11,7 +11,7 @@ Automatically add new users to each site in your Multisite WordPress installatio
 
 Running a Multisite WordPress? You no longer need to add new users to each of your sites manually.
 
-With this plugin, new users are assigned a role for each of your sites. You determine the default role for each site under the **Multisite User Management** section of the *Super Admin | Options* page.
+With this plugin, users are assigned a default role for each of your sites. You determine the default role for each site under the **Multisite User Management** section of the *Super Admin | Options* page.
 
 You can assign different roles for each site or no role if you want some site's to be kept private.
 
@@ -39,13 +39,15 @@ WordPress accesses the standard plugins directory after a user is activated.
 
 Only blogs marked as public and flagged as safe (mature flag off) are included in the list.
 
-= Can I assign roles to existing users? =
+= Does this plugin assign the default role to existing users? =
 
-No, the plugin only assigns roles for new users. If you would like it to support existing users, submit a ticket as per the instructions below.
+Yes, existing users will receive the default role. If you change the default role, existing users with the old default role will receive the new default role.
 
-= Can I assign roles for new blogs and new blog registrations? =
+= Will default roles be allocated to new users who are also registering a new site? =
 
-No, the plugin only supports new user registrations. If you would like it to create a default role for new blogs and new users also registering a blog, submit a ticket as per the instructions below.
+Yes, users registering with a site will receive all the existing default roles. 
+
+The new site will not have a default role until it is manually set. Once set, all existing users will receive that role for the new site.
 
 = Where can I make feature requests, get support & report bugs? =
 
