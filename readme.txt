@@ -3,7 +3,7 @@ Contributors: thenbrent
 Tags: multisite
 Requires at least: 3.0
 Tested up to: 3.0
-Stable tag: 0.1
+Stable tag: 0.2
 
 Automatically add new users to each site in your Multisite WordPress installation.
 
@@ -48,6 +48,10 @@ Yes, existing users will receive the default role. If you change the default rol
 Yes, users registering with a site will receive all the existing default roles. 
 
 The new site will not have a default role until it is manually set. Once set, all existing users will receive that role for the new site.
+
+= Why are new users registering with a site not given the default role for the dashboard site? =
+
+This is by design in the WordPress core.
 
 = Where can I make feature requests, get support & report bugs? =
 

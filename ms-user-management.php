@@ -4,7 +4,7 @@ Plugin Name: Multisite User Management
 Plugin URI: http://github.com/thenbrent/multisite-user-management
 Description: Running a WordPress in MultiSite mode? You no longer need to manually add new users to each of your sites. 
 Author: Brent Shepherd
-Version: 0.1
+Version: 0.2
 */
 
 // When a user activates their account, allocate them the default role set for each site
@@ -87,7 +87,6 @@ add_action('wpmu_options', 'msum_options');
 
 // Update Default Roles on submission of the multisite options page
 function msum_options_update(){
-	global $wpdb;
 
 	foreach( $_POST[ 'msum_default_user_role' ] as $blog_id => $new_role ) { 
 		switch_to_blog( $blog_id );
@@ -112,15 +111,14 @@ add_action( 'update_wpmu_options', 'msum_options_update' );
 function msum_get_users_with_role( $role ) {
 	global $wpdb;
 
-
 	if( $role != 'none' ) {
 			$sql = $wpdb->prepare( "SELECT DISTINCT($wpdb->users.ID) FROM $wpdb->users 
 							INNER JOIN $wpdb->usermeta ON $wpdb->users.ID = $wpdb->usermeta.user_id
 							WHERE $wpdb->usermeta.meta_key = '{$wpdb->prefix}capabilities' 
 							AND $wpdb->usermeta.meta_value LIKE %s", '%' . $role . '%' );
 
-	} else { // get users with 
-		$sql .= "SELECT DISTINCT($wpdb->users.ID) FROM $wpdb->users $wpdb->users.ID 
+	} else { // get users without a role for current site
+		$sql = "SELECT DISTINCT($wpdb->users.ID) FROM $wpdb->users
 				 WHERE $wpdb->users.ID NOT IN (
 					SELECT $wpdb->usermeta.user_id FROM $wpdb->usermeta
 					WHERE $wpdb->usermeta.meta_key = '{$wpdb->prefix}capabilities' 
