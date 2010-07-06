@@ -2,7 +2,7 @@
 /*
 Plugin Name: Multisite User Management
 Plugin URI: http://github.com/thenbrent/multisite-user-management
-Description: Running a WordPress in MultiSite mode? You no longer need to manually add new users to each of your sites. 
+Description: Running WordPress in Multisite mode? You no longer need to manually add new users to each of your sites. 
 Author: Brent Shepherd
 Version: 0.2
 */

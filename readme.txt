@@ -9,7 +9,7 @@ Automatically add new users to each site in your Multisite WordPress installatio
 
 == Description ==
 
-Running a Multisite WordPress? You no longer need to add new users to each of your sites manually.
+Running a Multisite WordPress? You no longer need to manually add new users to each of your sites. 
 
 With this plugin, users are assigned a default role for each of your sites. You determine the default role for each site under the **Multisite User Management** section of the *Super Admin | Options* page.
 
