@@ -79,5 +79,8 @@ Submit an Issue on the plugin's [Github page](http://github.com/thenbrent/multis
 
 == Upgrade Notice ==
 
+= 0.4 =
+Upgrade to fix bug found when saving options page without changing roles.
+
 = 0.3 =
 Important upgrade to fix bug found when saving options page with no multisite user management option.
