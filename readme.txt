@@ -3,23 +3,23 @@ Contributors: thenbrent
 Tags: multisite
 Requires at least: 3.0
 Tested up to: 3.0
-Stable tag: 0.2
+Stable tag: 0.4
 
 Automatically add new users to each site in your Multisite WordPress installation.
 
 == Description ==
 
-Running a Multisite WordPress? You no longer need to manually add new users to each of your sites. 
+Running a Multisite WordPress? You no longer need to add new users to each of your sites manually.
 
 With this plugin, users are assigned a default role for each of your sites. You determine the default role for each site under the **Multisite User Management** section of the *Super Admin | Options* page.
 
-You can assign different roles for each site or no role if you want some site's to be kept private.
+You can assign different roles for each site or no role if you want a site to be kept private.
 
 == Installation ==
 
-Please follow these instructions carefully. The plugin uses a special Multisite so it requires a slightly different installation to your vanilla WordPress plugin. 
+Please follow these instructions carefully. The plugin uses a special Multisite hook so it requires a slightly different installation to your vanilla WordPress plugin. 
 
-1. Upload the `ms-user-management.php` file to the `wp-content/mu-plugins/` directory (you can discard the directory and its contents). 
+1. Upload the `ms-user-management.php` file to the `wp-content/mu-plugins/` directory (you can discard the multisite-user-management directory and its contents). 
 1. Once uploaded to `mu-plugins`, the plugin will be activated automatically.
 1. Navigate to the **Multisite User Management** section of the *Super Admin | Options* page and set the default role for each of your sites.
 
@@ -59,9 +59,25 @@ Submit an Issue on the plugin's [Github page](http://github.com/thenbrent/multis
 
 == Screenshots ==
 
-1. **Super Admin Options** - Super admins can choose the default role for each site. New users be allocated this role when activating their account.
+1. **Super Admin Options** - Super admins can choose the default role for each site.
 
 == Changelog ==
 
+= 0.4 =
+* Fixed bug: original site did not restore when old role was the same as new role.
+
+= 0.3 =
+* Fixed bug found when updating WPMU options page with no MSUM set.
+
+= 0.2 =
+* Default roles now assigned to existing users
+* New users registering with a blog are now assigned default roles for existing sites
+* Fixed bugs affecting dashboad default role and activation when some sites had no default role
+
 = 0.1 =
 * Initial release.
+
+== Upgrade Notice ==
+
+= 0.3 =
+Important upgrade to fix bug found when saving options page with no multisite user management option.

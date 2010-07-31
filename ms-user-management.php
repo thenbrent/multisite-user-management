@@ -4,7 +4,7 @@ Plugin Name: Multisite User Management
 Plugin URI: http://github.com/thenbrent/multisite-user-management
 Description: Running WordPress in Multisite mode? You no longer need to manually add new users to each of your sites. 
 Author: Brent Shepherd
-Version: 0.2
+Version: 0.4
 */
 
 // When a user activates their account, allocate them the default role set for each site
@@ -40,7 +40,7 @@ add_action( 'wpmu_activate_blog', 'msum_activate_blog_user', 10, 2 );
 // Role assignment selection boxes on the 'Site Admin | Options' page
 function msum_options(){ ?>
 
-	<h3><?php _e( 'MultiSite User Management', 'msum' ); ?></h3>
+	<h3><?php _e( 'Multisite User Management', 'msum' ); ?></h3>
 	
 	<?php 
 	if( basename( dirname( __FILE__ ) ) != 'mu-plugins' ) {
@@ -88,12 +88,17 @@ add_action('wpmu_options', 'msum_options');
 // Update Default Roles on submission of the multisite options page
 function msum_options_update(){
 
+	if( !isset( $_POST[ 'msum_default_user_role' ] ) || !is_array( $_POST[ 'msum_default_user_role' ] ) )
+		return;
+
 	foreach( $_POST[ 'msum_default_user_role' ] as $blog_id => $new_role ) { 
 		switch_to_blog( $blog_id );
 		$old_role = get_option( 'msum_default_user_role', 'none' ); // default to none
 
-		if( $old_role == $new_role )
+		if( $old_role == $new_role ) {
+			restore_current_blog();
 			continue;
+		}
 
 		$blog_users = msum_get_users_with_role( $old_role );
 		foreach( $blog_users as $blog_user ) {
@@ -103,6 +108,7 @@ function msum_options_update(){
 				add_user_to_blog( $blog_id, $blog_user, $new_role );
 		}
 		update_option( 'msum_default_user_role', $new_role );
+
 		restore_current_blog();
 	}
 }
