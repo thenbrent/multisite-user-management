@@ -9,17 +9,18 @@ Automatically add new users to each site in your multsite WordPress installation
 
 == Description ==
 
-Running a multsite WordPress? You no longer need to add new users to each of your sites manually.
+Running a WordPress network? You no longer need to manually add new users to each of your sites.
 
 With this plugin, users are assigned a default role for each of your sites. You determine the default role for each site under the **Multisite User Management** section of the *Super Admin | Options* page.
 
-You can assign different roles for each site. To keep a site private, you can assign no role.
+You can assign different roles for each site or keep a site private by assigning no role.
 
 == Installation ==
 
-1. Upload the `/ms-user-management/` folder to the `/wp-content/plugins/` directory.
+1. Upload the entire `/multisite-user-management/` folder to the `/wp-content/plugins/` directory.
 1. Activate the plugin.
-1. Navigate to the **Multisite User Management** section of the *Super Admin | Options* page and set the default role for each of your sites.
+1. Navigate to the **Multisite User Management** section of the *Super Admin | Options* page. 
+1. Set default roles for each of your sites.
 
 == Frequently Asked Questions ==
 
