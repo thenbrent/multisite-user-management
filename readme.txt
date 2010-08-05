@@ -50,6 +50,7 @@ This is by design in the WordPress core.
 
 Submit an Issue on the plugin's [Github page](http://github.com/thenbrent/multisite-user-management/issues).
 
+Or for a slower response, make a post in the [WordPress support forum](http://wordpress.org/tags/multisite-user-management).
 
 == Screenshots ==
 
