@@ -5,7 +5,7 @@ Requires at least: 3.0
 Tested up to: 3.0
 Stable tag: 0.5
 
-Automatically add new users to each site in your multsite WordPress installation.
+Automatically add new users to each site in your WordPress network.
 
 == Description ==
 
