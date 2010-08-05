@@ -4,11 +4,11 @@ Plugin Name: Multisite User Management
 Plugin URI: http://github.com/thenbrent/multisite-user-management
 Description: Running WordPress in Multisite mode? You no longer need to manually add new users to each of your sites. 
 Author: Brent Shepherd
-Version: 0.4
+Version: 0.5
+Network: true
 */
 
-// When a user activates their account, allocate them the default role set for each site
-function msum_activate_user( $user_id ){
+function msum_add_roles( $user_id ){
 
 	$dashboard_blog = get_site_option( 'dashboard_blog' );
 
@@ -26,35 +26,35 @@ function msum_activate_user( $user_id ){
 
 		restore_current_blog();
 	}
+	update_user_meta( $user_id, 'msum_has_caps', 'true' );
 }
-add_action( 'wpmu_activate_user', 'msum_activate_user', 10, 1 );
+// When a user activates their account, allocate them the default role set for each site. This plugin needs to be in mu-plugins folder for this to work, otherwise role will be allocated on login.
+add_action( 'wpmu_activate_user', 'msum_add_roles', 10, 1 );
 
 
 // For users activating both a blog and an account
 function msum_activate_blog_user( $blog_id, $user_id ){
-	msum_activate_user( $user_id, $blog_id );
+	msum_add_roles( $user_id, $blog_id );
 }
 add_action( 'wpmu_activate_blog', 'msum_activate_blog_user', 10, 2 );
 
 
-// Role assignment selection boxes on the 'Site Admin | Options' page
-function msum_options(){ ?>
+//If plugin is not in mu-plugins folder, allocate roles on login.
+function msum_maybe_add_roles( $user_login ) {
+	$userdata = get_userdatabylogin( $user_login );
 
-	<h3><?php _e( 'Multisite User Management', 'msum' ); ?></h3>
-	
-	<?php 
-	if( basename( dirname( __FILE__ ) ) != 'mu-plugins' ) {
-		echo '<p><b>';
-		printf( __('Whoops, it appears %s is not located in <em>/wp-content/mu-plugins/</em>', 'msum' ), '<em>' . basename( __FILE__ ) . '</em>' );
-		echo '</b></p>';
-		echo '<p>';
-		printf( __( 'It is currently located in %s. Please move it to <em>/wp-content/mu-plugins/</em> for this plugin to work correctly.', 'msum' ), '<em>' . dirname( __FILE__ ) . '</em>' );
-		echo '</p>';
-		return;
+	if( $userdata != false && get_user_meta( $userdata->ID, 'msum_has_caps', true ) != 'true' ){
+		msum_add_roles( $userdata->ID );
 	}
+}
+add_action( 'wp_login', 'msum_maybe_add_roles', 10, 1 );
 
+
+// Role assignment selection boxes on the 'Site Admin | Options' page
+function msum_options(){
 	$dashboard_blog = get_site_option( 'dashboard_blog' );
-	$blogs = get_blog_list( 0, 'all' ); 
+	$blogs = get_blog_list( 0, 'all' );
+	echo '<h3>' . __( 'Multisite User Management', 'msum' ). '</h3>';
 
 	if( empty( $blogs ) ) {
 		echo '<p><b>' . __( 'No public, safe sites available.', 'msum' ) . '</b></p>';
@@ -114,6 +114,7 @@ function msum_options_update(){
 }
 add_action( 'update_wpmu_options', 'msum_options_update' );
 
+
 function msum_get_users_with_role( $role ) {
 	global $wpdb;
 
@@ -133,7 +134,7 @@ function msum_get_users_with_role( $role ) {
 
 	$users = $wpdb->get_col( $sql );
 
-	if( $role == 'none' ) { // if we got all users without a capability for the site, that will include super admins, so remove them
+	if( $role == 'none' ) { // if we got all users without a capability for the site, that includes super admins
 		$super_users = get_super_admins();
 
 		foreach( $users as $key => $user ){ //never modify caps for super admins

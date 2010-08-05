@@ -3,37 +3,29 @@ Contributors: thenbrent
 Tags: multisite
 Requires at least: 3.0
 Tested up to: 3.0
-Stable tag: 0.4
+Stable tag: 0.5
 
-Automatically add new users to each site in your Multisite WordPress installation.
+Automatically add new users to each site in your multsite WordPress installation.
 
 == Description ==
 
-Running a Multisite WordPress? You no longer need to add new users to each of your sites manually.
+Running a multsite WordPress? You no longer need to add new users to each of your sites manually.
 
 With this plugin, users are assigned a default role for each of your sites. You determine the default role for each site under the **Multisite User Management** section of the *Super Admin | Options* page.
 
-You can assign different roles for each site or no role if you want a site to be kept private.
+You can assign different roles for each site. To keep a site private, you can assign no role.
 
 == Installation ==
 
-Please follow these instructions carefully. The plugin uses a special Multisite hook so it requires a slightly different installation to your vanilla WordPress plugin. 
-
-1. Upload the `ms-user-management.php` file to the `wp-content/mu-plugins/` directory (you can discard the multisite-user-management directory and its contents). 
-1. Once uploaded to `mu-plugins`, the plugin will be activated automatically.
+1. Upload the `/ms-user-management/` folder to the `/wp-content/plugins/` directory.
+1. Activate the plugin.
 1. Navigate to the **Multisite User Management** section of the *Super Admin | Options* page and set the default role for each of your sites.
-
-Note: WordPress does not create the `mu-plugins` directory by default so you may need to create it. This plugin will not work in the `wp-content/plugins` directory. 
 
 == Frequently Asked Questions ==
 
-= Does the plugin require a Multisite installation? =
+= Does the plugin require a multisite installation? =
 
-Yes, WordPress takes care of the default role on non-Multisite installations.
-
-= Why can't I install this plugin in the wp-content/plugins directory? =
-
-WordPress accesses the standard plugins directory after a user is activated.
+Yes, WordPress takes care of the default role on non-multisite installations.
 
 = Why aren't all my sites listed on the options page? =
 
@@ -41,9 +33,9 @@ Only blogs marked as public and flagged as safe (mature flag off) are included i
 
 = Does this plugin assign the default role to existing users? =
 
-Yes, existing users will receive the default role. If you change the default role, existing users with the old default role will receive the new default role.
+Yes, existing users will receive the default role. If you change the default role, all of your users with the old default role will receive the new default role.
 
-= Will default roles be allocated to new users who are also registering a new site? =
+= Will these roles be allocated to new users registering with a new site? =
 
 Yes, users registering with a site will receive all the existing default roles. 
 
@@ -57,11 +49,15 @@ This is by design in the WordPress core.
 
 Submit an Issue on the plugin's [Github page](http://github.com/thenbrent/multisite-user-management/issues).
 
+
 == Screenshots ==
 
 1. **Super Admin Options** - Super admins can choose the default role for each site.
 
 == Changelog ==
+
+= 0.5 =
+* Roles now assigned on login. Plugin can now live in the wp-content/plugins directory. 
 
 = 0.4 =
 * Fixed bug: original site did not restore when old role was the same as new role.
@@ -78,6 +74,9 @@ Submit an Issue on the plugin's [Github page](http://github.com/thenbrent/multis
 * Initial release.
 
 == Upgrade Notice ==
+
+= 0.5 =
+Important upgrade. You can now install MSUM in the default wp-content/plugins folder. This makes it easier to install and keep track of updates.
 
 = 0.4 =
 Upgrade to fix bug found when saving options page without changing roles.
