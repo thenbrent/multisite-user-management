@@ -2,7 +2,7 @@
 /*
 Plugin Name: Multisite User Management
 Plugin URI: http://github.com/thenbrent/multisite-user-management
-Description: Running WordPress in Multisite mode? You no longer need to manually add new users to each of your sites. 
+Description: Running WordPress network? You no longer need to manually add new users to each of your sites. 
 Author: Brent Shepherd
 Version: 0.5
 Network: true
@@ -106,6 +106,7 @@ function msum_options_update(){
 				remove_user_from_blog( $blog_user, $blog_id );
 			if( $new_role != 'none' )
 				add_user_to_blog( $blog_id, $blog_user, $new_role );
+			update_user_meta( $blog_user, 'msum_has_caps', 'true' );
 		}
 		update_option( 'msum_default_user_role', $new_role );
 
