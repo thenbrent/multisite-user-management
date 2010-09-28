@@ -58,6 +58,10 @@ Or for a slower response, make a post in the [WordPress support forum](http://wo
 
 == Changelog ==
 
+= 0.6 =
+* bbPress registration now supported.
+* Dashboard blog's role is added if WordPress doesn't add it. For example, because you're using the Theme My Login plugin.
+
 = 0.5 =
 * Roles now assigned on login. Plugin can now live in the wp-content/plugins directory. 
 

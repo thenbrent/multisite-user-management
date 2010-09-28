@@ -2,9 +2,10 @@
 /*
 Plugin Name: Multisite User Management
 Plugin URI: http://github.com/thenbrent/multisite-user-management
-Description: Running WordPress network? You no longer need to manually add new users to each of your sites. 
+Description: Running a WordPress network? You are no longer required to manually add users to each of your sites.
 Author: Brent Shepherd
-Version: 0.5
+Author URI: http://find.brentshepherd.com/
+Version: 0.6
 Network: true
 */
 
@@ -14,12 +15,15 @@ function msum_add_roles( $user_id ){
 
 	foreach( get_blog_list( 0, 'all' ) as $key => $blog ) { 
 
-		if( $blog[ 'blog_id' ] == $dashboard_blog || is_user_member_of_blog( $user_id, $blog[ 'blog_id' ] ) )
+		if( is_user_member_of_blog( $user_id, $blog[ 'blog_id' ] ) )
 			continue;
 
 		switch_to_blog( $blog[ 'blog_id' ] );
 
-		$role = get_option( 'msum_default_user_role', 'none' ); // if no default set, use 'none'
+		if( $blog[ 'blog_id' ] == $dashboard_blog ) // user doesn't have default role for dashboard blog
+			$role = get_site_option( 'default_user_role', 'none' );
+		else
+			$role = get_option( 'msum_default_user_role', 'none' ); // if no default set, use 'none'
 
 		if( $role != 'none' )
 			add_user_to_blog( $blog[ 'blog_id' ], $user_id, $role );
@@ -48,7 +52,6 @@ function msum_maybe_add_roles( $user_login ) {
 	}
 }
 add_action( 'wp_login', 'msum_maybe_add_roles', 10, 1 );
-
 
 // Role assignment selection boxes on the 'Site Admin | Options' page
 function msum_options(){
