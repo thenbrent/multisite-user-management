@@ -1,11 +1,11 @@
 === Multisite User Management ===
 Contributors: thenbrent
-Tags: multisite
+Tags: multisite, buddypress, users, roles, multiuser
 Requires at least: 3.0
 Tested up to: 3.0
 Stable tag: 0.5
 
-Automatically add new users to each site in your WordPress network.
+Have WordPress automatically add new users to each site in your WordPress network.
 
 == Description ==
 
@@ -48,9 +48,7 @@ This is by design in the WordPress core.
 
 = Where can I make feature requests, get support & report bugs? =
 
-Submit an Issue on the plugin's [Github page](http://github.com/thenbrent/multisite-user-management/issues).
-
-Or for a slower response, make a post in the [WordPress support forum](http://wordpress.org/tags/multisite-user-management).
+Add a new topic on the [WordPress Support Forum](http://wordpress.org/tags/multisite-user-management).
 
 == Screenshots ==
 
@@ -61,6 +59,7 @@ Or for a slower response, make a post in the [WordPress support forum](http://wo
 = 0.6 =
 * bbPress registration now supported.
 * Dashboard blog's role is added if WordPress doesn't add it. For example, because you're using the Theme My Login plugin.
+* New tags, including BuddyPress.
 
 = 0.5 =
 * Roles now assigned on login. Plugin can now live in the wp-content/plugins directory. 
