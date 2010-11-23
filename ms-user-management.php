@@ -52,6 +52,7 @@ function msum_maybe_add_roles( $user_login ) {
 	}
 }
 add_action( 'wp_login', 'msum_maybe_add_roles', 10, 1 );
+add_action( 'social_connect_login', 'msum_maybe_add_roles', 10, 1 );
 
 // Role assignment selection boxes on the 'Site Admin | Options' page
 function msum_options(){
