@@ -11,8 +11,6 @@ Network: true
 
 function msum_add_roles( $user_id ){
 
-	$dashboard_blog = get_site_option( 'dashboard_blog' );
-
 	foreach( get_blog_list( 0, 'all' ) as $key => $blog ) { 
 
 		if( is_user_member_of_blog( $user_id, $blog[ 'blog_id' ] ) )
@@ -20,10 +18,7 @@ function msum_add_roles( $user_id ){
 
 		switch_to_blog( $blog[ 'blog_id' ] );
 
-		if( $blog[ 'blog_id' ] == $dashboard_blog ) // user doesn't have default role for dashboard blog
-			$role = get_site_option( 'default_user_role', 'none' );
-		else
-			$role = get_option( 'msum_default_user_role', 'none' ); // if no default set, use 'none'
+		$role = get_option( 'msum_default_user_role', 'none' ); // if no default set, use 'none'
 
 		if( $role != 'none' )
 			add_user_to_blog( $blog[ 'blog_id' ], $user_id, $role );
@@ -56,7 +51,7 @@ add_action( 'social_connect_login', 'msum_maybe_add_roles', 10, 1 );
 
 // Role assignment selection boxes on the 'Site Admin | Options' page
 function msum_options(){
-	$dashboard_blog = get_site_option( 'dashboard_blog' );
+
 	$blogs = get_blog_list( 0, 'all' );
 	echo '<h3>' . __( 'Multisite User Management', 'msum' ). '</h3>';
 
@@ -67,8 +62,7 @@ function msum_options(){
 		echo '<p>' . __( 'New users will receive these roles when activating their account. Existing users will receive these roles only if they have the current default role or no role at all for each particular site.', 'msum' ) . '</p>';
 		echo '<table class="form-table">';
 		foreach( $blogs as $key => $blog ) { 
-			if( $blog[ 'blog_id' ] == $dashboard_blog )
-				continue;
+
 			switch_to_blog( $blog[ 'blog_id' ] );
 			?>
 			<tr valign="top">
