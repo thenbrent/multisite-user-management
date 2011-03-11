@@ -57,6 +57,7 @@ Add a new topic on the [WordPress Support Forum](http://wordpress.org/tags/multi
 == Changelog ==
 
 = 0.6 =
+* Role now added for dashboard site as 3.1 assigns no role for any site
 * bbPress registration now supported.
 * Dashboard blog's role is added if WordPress doesn't add it. For example, because you're using the Theme My Login plugin.
 * New tags, including BuddyPress.
