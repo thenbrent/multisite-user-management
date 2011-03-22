@@ -5,7 +5,7 @@ Requires at least: 3.0
 Tested up to: 3.1
 Stable tag: 0.7
 
-Have WordPress automatically add new users to each site in your WordPress network.
+Make WordPress add users to each site in your WordPress network.
 
 == Description ==
 

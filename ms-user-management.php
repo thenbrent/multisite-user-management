@@ -119,10 +119,10 @@ function msum_get_users_with_role( $role ) {
 	global $wpdb;
 
 	if( $role != 'none' ) {
-			$sql = $wpdb->prepare( "SELECT DISTINCT($wpdb->users.ID) FROM $wpdb->users 
-							INNER JOIN $wpdb->usermeta ON $wpdb->users.ID = $wpdb->usermeta.user_id
-							WHERE $wpdb->usermeta.meta_key = '{$wpdb->prefix}capabilities' 
-							AND $wpdb->usermeta.meta_value LIKE %s", '%' . $role . '%' );
+		$sql = $wpdb->prepare( "SELECT DISTINCT($wpdb->users.ID) FROM $wpdb->users 
+						INNER JOIN $wpdb->usermeta ON $wpdb->users.ID = $wpdb->usermeta.user_id
+						WHERE $wpdb->usermeta.meta_key = '{$wpdb->prefix}capabilities' 
+						AND $wpdb->usermeta.meta_value LIKE %s", '%' . $role . '%' );
 
 	} else { // get users without a role for current site
 		$sql = "SELECT DISTINCT($wpdb->users.ID) FROM $wpdb->users
