@@ -3,7 +3,7 @@ Contributors: thenbrent
 Tags: multisite, buddypress, users, roles, multiuser
 Requires at least: 3.0
 Tested up to: 3.1
-Stable tag: 0.6
+Stable tag: 0.7
 
 Have WordPress automatically add new users to each site in your WordPress network.
 
@@ -30,7 +30,7 @@ Yes, WordPress takes care of the default role on non-multisite installations.
 
 = Why aren't all my sites listed on the options page? =
 
-Only blogs marked as public and flagged as safe (mature flag off) are included in the list.
+Any sites archived or deleted will not appear. All others sites will appear. 
 
 = Does this plugin assign the default role to existing users? =
 
@@ -51,6 +51,10 @@ Add a new topic on the [WordPress Support Forum](http://wordpress.org/tags/multi
 1. **Super Admin Options** - Super admins can choose the default role for each site.
 
 == Changelog ==
+
+= 0.7 =
+* Can now assign roles for mature sites and sites with search engines blocked.
+* No longer using deprecated get_blog_list function
 
 = 0.6 =
 * Role now added for dashboard site as 3.1 assigns no role for any site
@@ -75,6 +79,9 @@ Add a new topic on the [WordPress Support Forum](http://wordpress.org/tags/multi
 * Initial release.
 
 == Upgrade Notice ==
+
+= 0.7 =
+Optional Upgrade: you only need to upgrade if you want to assign a role for a blog marked mature or with search engines blocked.
 
 = 0.6 =
 Important upgrade for WordPress 3.1. You can now assign a role for the dashboard site. 

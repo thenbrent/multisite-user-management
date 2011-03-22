@@ -5,13 +5,13 @@ Plugin URI: http://github.com/thenbrent/multisite-user-management
 Description: Running a WordPress network? You are no longer need to manually add users to each of your sites.
 Author: Brent Shepherd
 Author URI: http://find.brentshepherd.com/
-Version: 0.6
+Version: 0.7
 Network: true
 */
 
 function msum_add_roles( $user_id ){
 
-	foreach( get_blog_list( 0, 'all' ) as $key => $blog ) { 
+	foreach( msum_get_blog_list( 0, 'all' ) as $key => $blog ) { 
 
 		if( is_user_member_of_blog( $user_id, $blog[ 'blog_id' ] ) )
 			continue;
@@ -49,6 +49,7 @@ function msum_maybe_add_roles( $user_login ) {
 add_action( 'wp_login', 'msum_maybe_add_roles', 10, 1 );
 add_action( 'social_connect_login', 'msum_maybe_add_roles', 10, 1 );
 
+
 // Role assignment selection boxes on the 'Site Admin | Options' page
 function msum_options(){
 
@@ -80,7 +81,7 @@ function msum_options(){
 	}
 		echo '<p>' . __( '<b>Note:</b> only public, non-mature and non-dashboard sites appear here. Set the default role for the dashboard site above under <b>Dashboard Settings</b>.', 'msum' ) . '</p>';
 }
-add_action('wpmu_options', 'msum_options');
+add_action( 'wpmu_options', 'msum_options' );
 
 
 // Update Default Roles on submission of the multisite options page
@@ -154,3 +155,26 @@ function msum_uninstall(){
 	}
 }
 register_uninstall_hook( __FILE__, 'msum_uninstall' );
+
+
+// A Copy of the WPMU deprecated get_blog_list function. Except this function gets all blogs, even if they are marked as mature and private
+function msum_get_blog_list( $start = 0, $num = 10 ) {
+	global $wpdb;
+
+	$blogs = $wpdb->get_results( $wpdb->prepare( "SELECT blog_id, domain, path FROM $wpdb->blogs WHERE site_id = %d AND archived = '0' AND spam = '0' AND deleted = '0' ORDER BY registered DESC", $wpdb->siteid ), ARRAY_A );
+
+	foreach ( (array) $blogs as $details ) {
+		$blog_list[ $details[ 'blog_id' ] ] = $details;
+		$blog_list[ $details[ 'blog_id' ] ]['postcount'] = $wpdb->get_var( "SELECT COUNT(ID) FROM " . $wpdb->get_blog_prefix( $details['blog_id'] ). "posts WHERE post_status='publish' AND post_type='post'" );
+	}
+	unset( $blogs );
+	$blogs = $blog_list;
+
+	if ( false == is_array( $blogs ) )
+		return array();
+
+	if ( $num == 'all' )
+		return array_slice( $blogs, $start, count( $blogs ) );
+	else
+		return array_slice( $blogs, $start, $num );
+}
