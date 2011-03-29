@@ -25,9 +25,9 @@ echo
 
 # Check version in readme.txt is the same as plugin file
 NEWVERSION1=`grep "^Stable tag" $GITPATH/readme.txt | awk '{print $NF+0}'`
-echo "before $NEWVERSION1 after"
+echo "readme version: $NEWVERSION1"
 NEWVERSION2=`grep "^Version" $GITPATH/$MAINFILE | awk '{print $NF+0}'`
-echo "before $NEWVERSION2 after"
+echo "$MAINFILE version: $NEWVERSION2"
 
 if [ "$NEWVERSION1" != "$NEWVERSION2" ]; then echo "Versions don't match. Exiting...."; exit 1; fi
 
@@ -41,7 +41,7 @@ git commit -am "$COMMITMSG"
 
 # Create a new tag and commit it :)
 echo "Tagging new version in git"
-git -a tag $NEWVERSION1 -m "$COMMITMSG"
+git -a tag "$NEWVERSION1" -m "$COMMITMSG"
 
 # push to origin
 echo "Push latest commit to origin, with tags"
