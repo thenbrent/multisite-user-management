@@ -15,6 +15,7 @@ SVNPATH="/tmp/$PLUGINSLUG" # path to a temp SVN repo. No trailing slash required
 SVNURL="http://plugins.svn.wordpress.org/multisite-user-management/" # Remote SVN repo on wordpress.org, with no trailing slash
 SVNUSER="thenbrent" # your svn username
 
+
 # Let's begin...
 echo ".........................................."
 echo 
@@ -39,7 +40,7 @@ read COMMITMSG
 git commit -am "$COMMITMSG"
 
 echo "Tagging new version in git"
-git tag -a "$NEWVERSION1" -m "$COMMITMSG"
+git tag -a "$NEWVERSION1" -m "Tagging version $NEWVERSION1"
 
 echo "Pushing latest commit to origin, with tags"
 git push origin master
@@ -57,15 +58,16 @@ svn propset svn:ignore "deploy.sh" "$SVNPATH/"
 svn propset svn:ignore "readme.md" "$SVNPATH/"
 
 echo "Changing directory to SVN and committing to trunk"
-cd $SVNPATH/trunk
+cd $SVNPATH/trunk/
 svn commit --username=$SVNUSER -m "$COMMITMSG"
 
 echo "Creating new SVN tag & committing it"
 cd $SVNPATH
-svn copy trunk/ tags/$NEWVERSION1
-svn commit --username=$SVNUSER -m "Updating tag to $NEWVERSION1"
+svn copy trunk/ tags/$NEWVERSION1/
+cd $SVNPATH/tags/$NEWVERSION1
+svn commit --username=$SVNUSER -m "Tagging version $NEWVERSION1"
 
 echo "Removing temporary directory $SVNPATH"
-#rm -fr $SVNPATH/
+rm -fr $SVNPATH/
 
 echo "*** FIN ***"
