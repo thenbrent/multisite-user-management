@@ -41,7 +41,7 @@ git commit -am "$COMMITMSG"
 
 # Create a new tag and commit it :)
 echo "Tagging new version in git"
-git -a tag "$NEWVERSION1" -m "$COMMITMSG"
+git tag -a "$NEWVERSION1" -m "$COMMITMSG"
 
 # push to origin
 echo "Push latest commit to origin, with tags"
