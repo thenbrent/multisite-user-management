@@ -5,13 +5,13 @@ Requires at least: 3.0
 Tested up to: 3.1
 Stable tag: 0.8
 
-Make WordPress add users to each site in your WordPress network.
+Automatically add users to each site in your WordPress network.
 
 == Description ==
 
 Running a WordPress network? You no longer need to manually add new users to each of your sites.
 
-With this plugin, users are assigned a default role for each of your sites. You determine the default role for each site under the **Multisite User Management** section of the *Super Admin | Options* page.
+With this plugin, users are assigned a default role for each of your sites. You determine the default role for each site under the **Multisite User Management** section of the *Network Admin | Settings* page.
 
 You can assign different roles for each site or keep a site private by assigning no role.
 
@@ -19,7 +19,7 @@ You can assign different roles for each site or keep a site private by assigning
 
 1. Upload the entire `/multisite-user-management/` folder to the `/wp-content/plugins/` directory.
 1. Activate the plugin.
-1. Navigate to the **Multisite User Management** section of the *Super Admin | Options* page. 
+1. Navigate to the **Multisite User Management** section of the *Network Admin | Settings* page. 
 1. Set default roles for each of your sites.
 
 == Frequently Asked Questions ==
@@ -48,7 +48,7 @@ Add a new topic on the [WordPress Support Forum](http://wordpress.org/tags/multi
 
 == Screenshots ==
 
-1. **Super Admin Options** - Super admins can choose the default role for each site.
+1. **Network Admin Settings** - Super admins can choose the default role for each site.
 
 == Changelog ==
 
