@@ -3,7 +3,7 @@ Contributors: thenbrent
 Tags: multisite, buddypress, users, roles, multiuser
 Requires at least: 3.0
 Tested up to: 3.1
-Stable tag: 0.7
+Stable tag: 0.8
 
 Make WordPress add users to each site in your WordPress network.
 
@@ -52,6 +52,9 @@ Add a new topic on the [WordPress Support Forum](http://wordpress.org/tags/multi
 
 == Changelog ==
 
+= 0.8 =
+* No longer using deprecated get_blog_list function anywhere
+
 = 0.7 =
 * Can now assign roles for mature sites and sites with search engines blocked.
 * No longer using deprecated get_blog_list function
@@ -79,6 +82,9 @@ Add a new topic on the [WordPress Support Forum](http://wordpress.org/tags/multi
 * Initial release.
 
 == Upgrade Notice ==
+
+= 0.8 =
+Optional Upgrade: only upgrade if you want to assign a role for a blog marked mature or with search engines blocked.
 
 = 0.7 =
 Optional Upgrade: you only need to upgrade if you want to assign a role for a blog marked mature or with search engines blocked.

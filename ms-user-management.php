@@ -5,7 +5,7 @@ Plugin URI: http://github.com/thenbrent/multisite-user-management
 Description: Running a WordPress network? You no longer need to manually add users to each of your sites.
 Author: Brent Shepherd
 Author URI: http://find.brentshepherd.com/
-Version: 0.7
+Version: 0.8
 Network: true
 */
 
@@ -53,7 +53,7 @@ add_action( 'social_connect_login', 'msum_maybe_add_roles', 10, 1 );
 // Role assignment selection boxes on the 'Site Admin | Options' page
 function msum_options(){
 
-	$blogs = get_blog_list( 0, 'all' );
+	$blogs = msum_get_blog_list( 0, 'all' );
 	echo '<h3>' . __( 'Multisite User Management', 'msum' ). '</h3>';
 
 	if( empty( $blogs ) ) {
@@ -148,7 +148,7 @@ function msum_get_users_with_role( $role ) {
 
 // Clean up when plugin is deleted
 function msum_uninstall(){
-	foreach( get_blog_list( 0, 'all' ) as $key => $blog ) { 
+	foreach( msum_get_blog_list( 0, 'all' ) as $key => $blog ) { 
 		switch_to_blog( $blog[ 'blog_id' ] );
 		delete_option( 'msum_default_user_role', $role );
 		restore_current_blog();
