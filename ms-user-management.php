@@ -5,7 +5,7 @@ Plugin URI: http://github.com/thenbrent/multisite-user-management
 Description: Running a WordPress network? You no longer need to manually add users to each of your sites.
 Author: Brent Shepherd
 Author URI: http://find.brentshepherd.com/
-Version: 0.8
+Version: 1.0
 Network: true
 */
 
@@ -27,8 +27,9 @@ function msum_add_roles( $user_id ){
 	}
 	update_user_meta( $user_id, 'msum_has_caps', 'true' );
 }
-// When a user activates their account, allocate them the default role set for each site. This plugin needs to be in mu-plugins folder for this to work, otherwise role will be allocated on login.
+// When a user activates their account, allocate them the default role set for each site. This plugin needs to be in mu-plugins folder for this hook to work, otherwise role will be allocated on login.
 add_action( 'wpmu_activate_user', 'msum_add_roles', 10, 1 );
+add_action( 'wpmu_new_user', 'msum_add_roles', 10, 1 );
 
 
 // For users activating both a blog and an account
@@ -38,7 +39,7 @@ function msum_activate_blog_user( $blog_id, $user_id ){
 add_action( 'wpmu_activate_blog', 'msum_activate_blog_user', 10, 2 );
 
 
-//If plugin is not in mu-plugins folder, allocate roles on login.
+// If plugin is not in mu-plugins folder, allocate roles on login.
 function msum_maybe_add_roles( $user_login ) {
 	$userdata = get_userdatabylogin( $user_login );
 
