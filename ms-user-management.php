@@ -9,6 +9,9 @@ Version: 1.0
 Network: true
 */
 
+/**
+ * Adds the default roles for all sites to a user, specified by $user_id
+ */
 function msum_add_roles( $user_id ){
 
 	foreach( msum_get_blog_list( 0, 'all' ) as $key => $blog ) { 
@@ -27,7 +30,6 @@ function msum_add_roles( $user_id ){
 	}
 	update_user_meta( $user_id, 'msum_has_caps', 'true' );
 }
-// When a user activates their account, allocate them the default role set for each site. This plugin needs to be in mu-plugins folder for this hook to work, otherwise role will be allocated on login.
 add_action( 'wpmu_activate_user', 'msum_add_roles', 10, 1 );
 add_action( 'wpmu_new_user', 'msum_add_roles', 10, 1 );
 
