@@ -34,14 +34,22 @@ add_action( 'wpmu_activate_user', 'msum_add_roles', 10, 1 );
 add_action( 'wpmu_new_user', 'msum_add_roles', 10, 1 );
 
 
-// For users activating both a blog and an account
+/**
+ * Sometimes a user will be activated along with their blog, this function implements @see msum_add_roles 
+ * on the 'wpmu_activate_blog' action.
+ */
 function msum_activate_blog_user( $blog_id, $user_id ){
 	msum_add_roles( $user_id, $blog_id );
 }
 add_action( 'wpmu_activate_blog', 'msum_activate_blog_user', 10, 2 );
 
 
-// If plugin is not in mu-plugins folder, allocate roles on login.
+/**
+ * The 'wpmu_activate_user', 'wpmu_new_user' & 'wpmu_activate_blog' actions can only be 
+ * hooked if the plugin is in the mu-plugins folder, which is a PITA. 
+ * 
+ * This function calls @see msum_add_roles from the 'wp_login' action.  
+ */
 function msum_maybe_add_roles( $user_login ) {
 	$userdata = get_userdatabylogin( $user_login );
 
@@ -53,14 +61,16 @@ add_action( 'wp_login', 'msum_maybe_add_roles', 10, 1 );
 add_action( 'social_connect_login', 'msum_maybe_add_roles', 10, 1 );
 
 
-// Role assignment selection boxes on the 'Network Admin | Settings' page
+/**
+ * Outputs the role selection boxes on the 'Network Admin | Settings' page. 
+ */
 function msum_options(){
 
 	$blogs = msum_get_blog_list( 0, 'all' );
 	echo '<h3>' . __( 'Multisite User Management', 'msum' ). '</h3>';
 
 	if( empty( $blogs ) ) {
-		echo '<p><b>' . __( 'No public, safe sites available.', 'msum' ) . '</b></p>';
+		echo '<p><b>' . __( 'No sites available.', 'msum' ) . '</b></p>';
 	} else {
 		echo '<p>' . __( 'Select the default role for each of your sites.', 'msum' ) . '</p>';
 		echo '<p>' . __( 'New users will receive these roles when activating their account. Existing users will receive these roles only if they have the current default role or no role at all for each particular site.', 'msum' ) . '</p>';
@@ -87,7 +97,9 @@ function msum_options(){
 add_action( 'wpmu_options', 'msum_options' );
 
 
-// Update Default Roles on submission of the multisite options page
+/**
+ * Update Default Roles on submission of the multisite options page.
+ */
 function msum_options_update(){
 
 	if( !isset( $_POST[ 'msum_default_user_role' ] ) || !is_array( $_POST[ 'msum_default_user_role' ] ) )
@@ -118,6 +130,12 @@ function msum_options_update(){
 add_action( 'update_wpmu_options', 'msum_options_update' );
 
 
+/**
+ * Selects all the users with a given role and returns an array of the users' IDs. 
+ * 
+ * @param $role string The role to get the users for
+ * @return $users array Array of user IDs for those users with the given role. 
+ */
 function msum_get_users_with_role( $role ) {
 	global $wpdb;
 
@@ -149,7 +167,10 @@ function msum_get_users_with_role( $role ) {
 	return $users;
 }
 
-// Clean up when plugin is deleted
+
+/**
+ * Clean up when plugin is deleted
+ */
 function msum_uninstall(){
 	foreach( msum_get_blog_list( 0, 'all' ) as $key => $blog ) { 
 		switch_to_blog( $blog[ 'blog_id' ] );
@@ -160,7 +181,11 @@ function msum_uninstall(){
 register_uninstall_hook( __FILE__, 'msum_uninstall' );
 
 
-// A Copy of the WPMU deprecated get_blog_list function. Except this function gets all blogs, even if they are marked as mature and private
+/**
+ * Based on the deprecated WPMU get_blog_list function. 
+ * 
+ * Except this function gets all blogs, even if they are marked as mature and private.
+ */
 function msum_get_blog_list( $start = 0, $num = 10 ) {
 	global $wpdb;
 
