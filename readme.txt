@@ -73,6 +73,9 @@ Add a new topic on the [WordPress Support Forum](http://wordpress.org/tags/multi
 
 == Changelog ==
 
+= 1.1 = 
+* The msum_add_roles() function is now called on vanilla "user_register" hook so that it *should* work with all plugins that use the standard WP User registration API, not just WP Network/Multisite plugins
+
 = 1.0 =
 * Hooking the `msum_add_roles()` function to the `wpmu_new_user` action.
 
@@ -106,6 +109,9 @@ Add a new topic on the [WordPress Support Forum](http://wordpress.org/tags/multi
 * Initial release.
 
 == Upgrade Notice ==
+
+= 1.1 = 
+Optional Upgrade: Improved computability with plugins designed for standard WordPress sites (not just Network/Multisite WordPress installs)
 
 = 1.0 =
 Optional Upgrade: only upgrade if you are adding a large number of new users manually.

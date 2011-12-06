@@ -5,7 +5,7 @@ Plugin URI: http://github.com/thenbrent/multisite-user-management
 Description: Running a WordPress network? You no longer need to manually add users to each of your sites.
 Author: Brent Shepherd
 Author URI: http://find.brentshepherd.com/
-Version: 1.0
+Version: 1.0-a
 Network: true
 */
 
@@ -32,6 +32,7 @@ function msum_add_roles( $user_id ){
 }
 add_action( 'wpmu_activate_user', 'msum_add_roles', 10, 1 );
 add_action( 'wpmu_new_user', 'msum_add_roles', 10, 1 );
+add_action( 'user_register', 'msum_add_roles', 10, 1 );
 
 
 /**
