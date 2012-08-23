@@ -5,8 +5,8 @@ Plugin URI: http://github.com/thenbrent/multisite-user-management
 Description: Running a WordPress network? You no longer need to manually add users to each of your sites.
 Author: Brent Shepherd
 Author URI: http://find.brentshepherd.com/
-Version: 1.0-a
 Network: true
+Version: 1.1
 */
 
 /**
