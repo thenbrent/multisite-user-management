@@ -3,7 +3,7 @@ Contributors: thenbrent
 Tags: multisite, buddypress, users, roles, multiuser
 Requires at least: 3.0
 Tested up to: 3.2.1
-Stable tag: 1.0
+Stable tag: 1.1
 
 Automatically add users to each site in your WordPress network.
 
@@ -74,7 +74,8 @@ Add a new topic on the [WordPress Support Forum](http://wordpress.org/tags/multi
 == Changelog ==
 
 = 1.1 = 
-* The msum_add_roles() function is now called on vanilla "user_register" hook so that it *should* work with all plugins that use the standard WP User registration API, not just WP Network/Multisite plugins
+* The msum_add_roles() function is now called on vanilla "user_register" hook so that it should work with all plugins that use the standard WP User registration API, not just WP Network/Multisite plugins
+* Updating use of deprecated `get_userdatabylogin()` to new `get_user_by( 'login' )`
 
 = 1.0 =
 * Hooking the `msum_add_roles()` function to the `wpmu_new_user` action.
@@ -111,7 +112,7 @@ Add a new topic on the [WordPress Support Forum](http://wordpress.org/tags/multi
 == Upgrade Notice ==
 
 = 1.1 = 
-Optional Upgrade: Improved computability with plugins designed for standard WordPress sites (not just Network/Multisite WordPress installs)
+Optional Upgrade: Improved compatibility with plugins designed for standard WordPress sites (not just Network/Multisite WordPress installs)
 
 = 1.0 =
 Optional Upgrade: only upgrade if you are adding a large number of new users manually.
