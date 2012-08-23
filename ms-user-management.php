@@ -52,11 +52,14 @@ add_action( 'wpmu_activate_blog', 'msum_activate_blog_user', 10, 2 );
  * This function calls @see msum_add_roles from the 'wp_login' action.  
  */
 function msum_maybe_add_roles( $user_login ) {
-	$userdata = get_userdatabylogin( $user_login );
 
-	if( $userdata != false && get_user_meta( $userdata->ID, 'msum_has_caps', true ) != 'true' ){
+	if ( function_exists( 'get_user_by' ) )
+		$userdata = get_user_by( 'login', $user_login );
+	else
+		$userdata = get_userdatabylogin( $user_login );
+
+	if( $userdata != false && get_user_meta( $userdata->ID, 'msum_has_caps', true ) != 'true' )
 		msum_add_roles( $userdata->ID );
-	}
 }
 add_action( 'wp_login', 'msum_maybe_add_roles', 10, 1 );
 add_action( 'social_connect_login', 'msum_maybe_add_roles', 10, 1 );
