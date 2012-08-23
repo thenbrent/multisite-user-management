@@ -24,15 +24,23 @@ echo
 echo ".........................................."
 echo 
 
-# Check version in readme.txt is the same as plugin file
-NEWVERSION1=`grep "^Stable tag" $GITPATH/readme.txt | awk -F' ' '{print $3}'`
-echo "readme version: $NEWVERSION1"
-NEWVERSION2=`grep "^Version" $GITPATH/$MAINFILE | awk -F' ' '{print $2}'`
+# Check version in readme.txt is the same as plugin file after translating both to unix line breaks to work around grep's failure to identify mac line breaks
+NEWVERSION1=`grep "^Stable tag:" $GITPATH/readme.txt | awk -F' ' '{print $NF}'`
+echo "readme.txt version: $NEWVERSION1"
+NEWVERSION2=`grep "^Version:" $GITPATH/$MAINFILE | awk -F' ' '{print $NF}'`
 echo "$MAINFILE version: $NEWVERSION2"
 
-if [ "$NEWVERSION1" != "$NEWVERSION2" ]; then echo "Versions don't match. Exiting...."; exit 1; fi
+if [ "$NEWVERSION1" != "$NEWVERSION2" ]; then echo "Version in readme.txt & $MAINFILE don't match. Exiting...."; exit 1; fi
 
-echo "Versions match in readme.txt and PHP file. Let's proceed..."
+echo "Versions match in readme.txt and $MAINFILE. Let's proceed..."
+
+if git show-ref --tags --quiet --verify -- "refs/tags/$NEWVERSION1"
+	then 
+		echo "Version $NEWVERSION1 already exists as git tag. Exiting...."; 
+		exit 1; 
+	else
+		echo "Git version does not exist. Let's proceed..."
+fi
 
 cd $GITPATH
 echo -e "Enter a commit message for this new version: \c"
