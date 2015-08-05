@@ -25,8 +25,7 @@ echo ".........................................."
 echo 
 
 # Check if subversion is installed before getting all worked up
-if [ $(dpkg-query -W -f='${Status}' subversion 2>/dev/null | grep -c "ok installed") != "1" ]
-then
+if ! which svn >/dev/null; then
 	echo "You'll need to install subversion before proceeding. Exiting....";
 	exit 1;
 fi
